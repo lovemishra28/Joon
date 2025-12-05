@@ -24,3 +24,6 @@ npm-debug.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+
+*storybook.log
+storybook-static

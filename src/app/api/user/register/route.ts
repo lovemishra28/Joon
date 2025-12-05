@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-    const saltRounds = 10
+    const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const newUser = new User({

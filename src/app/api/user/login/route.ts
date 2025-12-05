@@ -48,11 +48,19 @@ export async function POST(request: NextRequest) {
     });
 
     const response = NextResponse.json(
-      { success: true, message: "Login successfull!" },
+      {
+        success: true,
+        message: "Login successfull!",
+        user: { name: existingUser.name, id: existingUser._id },
+      },
       { status: 201 }
     );
 
-    response.cookies.set("token", token, { httpOnly: true });
+    response.cookies.set("token", token, {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60,
+      path: "/",
+    });
 
     return response;
   } catch (error) {
