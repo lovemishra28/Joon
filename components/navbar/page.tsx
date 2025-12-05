@@ -11,7 +11,7 @@ import {
   LogOut,
   LayoutDashboard,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,7 +29,7 @@ type Props = {
 
 const Navbar = ({ isLoggedin }: Props) => {
   return (
-    <nav className="border-b border-gray-200 py-3 px-4 md:px-28 flex justify-between items-center sticky z-50 bg-white/80 backdrop-blur-md supports-backdrop-filter:bg-white/60 text-black top-0 ">
+    <nav className="border-b border-gray-200 py-8 px-4 md:px-8 flex justify-between items-center sticky z-50 bg-white/80 backdrop-blur-md supports-backdrop-filter:bg-white/60 text-black top-0 ">
       {/* 1. Left Side: Logo (Home Link) */}
       <div className="left flex items-center">
         <Link href="/">
@@ -41,29 +41,26 @@ const Navbar = ({ isLoggedin }: Props) => {
 
       {/* 2. Right Side: Navigation Icons */}
       <div className="right flex items-center">
-        <div className="flex gap-2 sm:gap-8 items-center">
+        <div className="flex gap-2 sm:gap-10 items-center">
           <Link
             href="/seller/dashboard"
             className="hover:text-gray-600 transition"
           >
-            <Button
-              variant="ghost"
-              className="font-semibold gap-2 text-gray-700"
-            >
+            <div className="font-semibold gap-2 hover:text-gray-700 flex justify-center items-center">
               <StoreIcon />
               Become a seller
-            </Button>
+            </div>
           </Link>
           <Link href="/shop" className="hover:text-gray-600 transition">
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <List className="w-8 h-8" />
-            </Button>
+            <div className="rounded-full">
+              <List className="w-6 h-6" />
+            </div>
           </Link>
           <Link
             href="/cart"
             className="relative group hover:text-gray-600 transition"
           >
-            <Button variant="ghost" size="icon" className="rounded-full">
+            <div className="rounded-full">
               <ShoppingCart className="w-6 h-6" />
               {isLoggedin ? (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center border-2 border-white">
@@ -72,14 +69,14 @@ const Navbar = ({ isLoggedin }: Props) => {
               ) : (
                 ""
               )}
-            </Button>
+            </div>
           </Link>
           {isLoggedin ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="rounded-full">
+                <div className="rounded-full">
                   <User className="w-6 h-6" />
-                </Button>
+                </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 bg-white">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -111,9 +108,9 @@ const Navbar = ({ isLoggedin }: Props) => {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-          <Link href={"/login"} className="hover:text-gray-600 transition">
-              <Button>Login</Button>
-          </Link>
+            <Link href={"/login"} className="hover:text-gray-600 transition">
+              <div>Login</div>
+            </Link>
           )}
         </div>
       </div>
