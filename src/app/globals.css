@@ -1,6 +1,13 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+html{
+  scroll-behavior: smooth;
+}
+/* .goldabba{
+  transition: border-radius 300ms;
+} */
+
 @custom-variant dark (&:is(.dark *));
 
 *{scrollbar-width: none;}
