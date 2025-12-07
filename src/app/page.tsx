@@ -43,16 +43,16 @@ export default function Home() {
             <Image
               src={coverImage}
               alt="cover Image"
-              className="object-cover  rounded-2xl"
+              className="object-center md:object-cover   rounded-2xl"
             />
-            <div className="top-6/10 left-1/15 absolute  p-5  text-black font-bold font-sans text-left flex flex-col gap-4">
+            <div className=" top-2/5 md:top-6/10 left-1/15 absolute  p-5  md:w-max w-40 text-black font-bold font-sans text-left flex flex-col gap-4">
               <div>
-                <p className="text-xl ">
+                <p className="text-xs md:text-xl ">
                   Your world of products, one click away.
                 </p>
               </div>
               <div>
-                <p className="text-3xl ">
+                <p className="md:text-3xl ">
                   Discover more. spend less. smile bigger.
                 </p>
               </div>
@@ -69,18 +69,46 @@ export default function Home() {
 
         {/* Div 2 content */}
 
-        <div className="  flex h-[calc(100vh-100px)] p-2 gap-3">
-          <div className="flex overflow-hidden w-1/4 grow rounded-[20px] bg-black hover:rounded-[250px] transition-[border-radius] duration-300">
-            <Image src={headphone} alt="product" className="object-cover " />
+        <div className=" flex flex-col md:flex-row h-[600px]  md:h-[calc(100vh-100px)] p-2 gap-3">
+          <div
+            tabIndex={0}
+            className="flex overflow-hidden w-full md:w-1/4 md:h-full h-1/4 focus:h-3/4 grow rounded-[20px] bg-black md:focus:h-full hover:rounded-[250px] transition-all md:transition-[border-radius] duration-300 "
+          >
+            <Image
+              src={headphone}
+              alt="product"
+              className="object-cover w-full h-full"
+            />
           </div>
-          <div className="flex overflow-hidden w-1/4 grow rounded-[20px] bg-black hover:rounded-[250px] transition-[border-radius] duration-300">
-            <Image src={sneaker} alt="product" className="object-cover " />
+          <div
+            tabIndex={0}
+            className="flex overflow-hidden w-full md:w-1/4 md:h-full h-1/4 focus:h-3/4 grow rounded-[20px] bg-black md:focus:h-full hover:rounded-[250px] transition-all md:transition-[border-radius] duration-300 "
+          >
+            <Image
+              src={sneaker}
+              alt="product"
+              className="object-cover w-full h-full"
+            />
           </div>
-          <div className="flex overflow-hidden w-1/4 grow rounded-[20px] bg-black hover:rounded-[250px] transition-[border-radius] duration-300">
-            <Image src={shirt} alt="product" className="object-cover " />
+          <div
+            tabIndex={0}
+            className="flex overflow-hidden w-full md:w-1/4 md:h-full h-1/4 focus:h-3/4 grow rounded-[20px] bg-black md:focus:h-full hover:rounded-[250px] transition-all md:transition-[border-radius] duration-300 "
+          >
+            <Image
+              src={shirt}
+              alt="product"
+              className="object-cover w-full h-full"
+            />
           </div>
-          <div className="flex overflow-hidden w-1/4 grow rounded-[20px] bg-black hover:rounded-[250px] transition-[border-radius] duration-300">
-            <Image src={jacket} alt="product" className="object-cover " />
+          <div
+            tabIndex={0}
+            className="flex overflow-hidden w-full md:w-1/4 md:h-full h-1/4 focus:h-3/4 grow rounded-[20px] bg-black md:focus:h-full hover:rounded-[250px] transition-all md:transition-[border-radius] duration-300 "
+          >
+            <Image
+              src={jacket}
+              alt="product"
+              className="object-cover w-full h-full"
+            />
           </div>
         </div>
 
@@ -101,14 +129,18 @@ export default function Home() {
               Womens
             </button>
           </div>
-          <div className="flex gap-3 overflow-x-auto">
+          <div className="flex flex-col h-[calc(100vh-100px)] grow md:flex-row gap-3 overflow-x-auto">
             <div
               ref={mensRef}
-              className="w-full shrink-0 rounded-2xl bg-yellow-300 border flex overflow-hidden relative"
+              className="w-full h-2/5 grow md:h-full shrink-0 rounded-2xl bg-yellow-300 border flex overflow-hidden relative"
             >
-              <Image src={mens} alt="Mens Category" className="object-cover " />
+              <Image
+                src={mens}
+                alt="Mens Category"
+                className="object-center md:object-cover "
+              />
               <div className="top-1/2 left-9/10 -translate-y-1/2 -translate-x-9/10 z-20 text-black absolute  p-2 w-1/3 h-8/10 flex flex-col justify-center items-center gap-8">
-                <p className="text-4xl text-white font-bold">
+                <p className="text-2xl md:text-4xl text-white font-bold">
                   Trending Men's Fashion
                 </p>
                 <button className="p-3 rounded-4xl border-2 border-black bg-white text-black w-30 text-center">
@@ -118,15 +150,15 @@ export default function Home() {
             </div>
             <div
               ref={womensRef}
-              className="w-full shrink-0 rounded-2xl bg-yellow-300 border flex overflow-hidden relative"
+              className="w-full h-2/5 grow md:h-full shrink-0 rounded-2xl bg-yellow-300 border flex overflow-hidden relative"
             >
               <Image
                 src={womens}
                 alt="Womens Category"
-                className="object-center"
+                className="object-center "
               />
               <div className="top-1/2 -translate-y-1/2 left-1/10 -translate-x-1/10  z-20 text-black absolute  p-2 w-1/3 h-8/10 flex flex-col justify-center items-center gap-8">
-                <p className="text-4xl text-white font-bold">
+                <p className="text-2xl md:text-4xl text-white font-bold">
                   Trending Women's Fashion
                 </p>
                 <button className="p-3 rounded-4xl border-2 border-black bg-white text-black w-30 text-center">
@@ -139,8 +171,8 @@ export default function Home() {
 
         {/* Div 4 content */}
 
-        <div className="flex h-[calc(100vh-100px)] p-2 bg-gray-100">
-          <div className="w-1/3 flex flex-col justify-center items-center text-center p-8">
+        <div className="flex flex-col md:flex-row h-[calc(100vh-100px)] p-2 bg-gray-100">
+          <div className="w-full md:w-1/3 flex flex-col justify-center items-center text-center p-8">
             <h2 className="text-5xl font-bold text-gray-800 mb-4">
               Best Sellers
             </h2>
@@ -153,7 +185,7 @@ export default function Home() {
               </button>
             </Link>
           </div>
-          <div className="w-2/3 p-4 grid grid-cols-4 grid-rows-4 gap-4">
+          <div className="w-full md:w-2/3 p-4 grid grid-cols-2 md:grid-cols-4 grid-rows-4 gap-4">
             {/* Main Image */}
             <div className="col-span-3 row-span-4 rounded-2xl overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
               <Image
@@ -179,7 +211,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div></div>
       </div>
     </>
   );
