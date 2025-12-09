@@ -119,9 +119,11 @@ export default function addProduct() {
             className="border"
           >
             <option value="">Category</option>
-            <option value="cat1">cat1</option>
-            <option value="cat2">cat2</option>
-            <option value="cat3">cat3</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Hardware">Hardware</option>
+            <option value="Hardware">Others</option>
           </select>
         </div>
 

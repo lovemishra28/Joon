@@ -47,130 +47,222 @@ export default function placeOrder() {
   };
 
   return (
-    <div className="border flex flex-col justify-center items-center p-4">
-      <h1 className="pb-4 text-3xl font-bold">Delivery Information</h1>
-      <form
-        onSubmit={handlePlaceOrder}
-        className="border flex gap-2 p-4 w-full"
-      >
-        <div className="flex flex-col border p-2 left gap-4 w-7/10">
-          <div className="flex w-full gap-2">
-            <input
-              type="text"
-              placeholder="Fist-Name"
-              className="text-center outline-none border border-gray-500 p-2 grow"
-              value={address.firstName}
-              onChange={(e) => {
-                setAddress({ ...address, firstName: e.target.value });
-              }}
-            />
-            <input
-              type="text"
-              placeholder="Last-Name"
-              className="text-center outline-none border border-gray-500 p-2 grow"
-              value={address.lastName}
-              onChange={(e) => {
-                setAddress({ ...address, lastName: e.target.value });
-              }}
-            />
-          </div>
-          <div className="w-full">
-            <input
-              type="text"
-              placeholder="Email"
-              className="text-center outline-none border border-gray-500 p-2 w-full "
-              value={address.email}
-              onChange={(e) => {
-                setAddress({ ...address, email: e.target.value });
-              }}
-            />
-          </div>
-          <div className="border p-4 ">
-            <h6 className="pb-4">Address</h6>
-            <div className="flex flex-col gap-2">
-              <div className="flex gap-2 w-full">
+    <div className="bg-[#F3F4F6] min-h-[calc(100vh-120px)] w-full p-4 sm:p-8">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+          Delivery Information
+        </h1>
+        <form
+          onSubmit={handlePlaceOrder}
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+        >
+          {/* Shipping Details Column */}
+          <div className="md:col-span-2 bg-white p-8 rounded-2xl shadow-md">
+            <h2 className="text-2xl font-semibold text-gray-700 mb-6">
+              Shipping Address
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label
+                  htmlFor="firstName"
+                  className="block text-sm font-medium text-gray-600 mb-1"
+                >
+                  First Name
+                </label>
                 <input
                   type="text"
-                  placeholder="Street"
-                  className="text-center outline-none grow border border-gray-500 p-2 "
+                  id="firstName"
+                  placeholder="John"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
+                  value={address.firstName}
+                  onChange={(e) =>
+                    setAddress({ ...address, firstName: e.target.value })
+                  }
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="lastName"
+                  className="block text-sm font-medium text-gray-600 mb-1"
+                >
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  id="lastName"
+                  placeholder="Doe"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
+                  value={address.lastName}
+                  onChange={(e) =>
+                    setAddress({ ...address, lastName: e.target.value })
+                  }
+                  required
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-600 mb-1"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="john.doe@example.com"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
+                  value={address.email}
+                  onChange={(e) =>
+                    setAddress({ ...address, email: e.target.value })
+                  }
+                  required
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <label
+                  htmlFor="street"
+                  className="block text-sm font-medium text-gray-600 mb-1"
+                >
+                  Street Address
+                </label>
+                <input
+                  type="text"
+                  id="street"
+                  placeholder="123 Main St"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
                   value={address.street}
-                  onChange={(e) => {
-                    setAddress({ ...address, street: e.target.value });
-                  }}
+                  onChange={(e) =>
+                    setAddress({ ...address, street: e.target.value })
+                  }
+                  required
                 />
+              </div>
+              <div>
+                <label
+                  htmlFor="city"
+                  className="block text-sm font-medium text-gray-600 mb-1"
+                >
+                  City
+                </label>
                 <input
                   type="text"
-                  placeholder="City"
-                  className="text-center outline-none grow border border-gray-500 p-2  "
+                  id="city"
+                  placeholder="Anytown"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
                   value={address.city}
-                  onChange={(e) => {
-                    setAddress({ ...address, city: e.target.value });
-                  }}
+                  onChange={(e) =>
+                    setAddress({ ...address, city: e.target.value })
+                  }
+                  required
                 />
               </div>
-              <div className=" w-full flex flex-col gap-2 ">
+              <div>
+                <label
+                  htmlFor="state"
+                  className="block text-sm font-medium text-gray-600 mb-1"
+                >
+                  State / Province
+                </label>
                 <input
                   type="text"
-                  placeholder="Pincode"
-                  className="text-center outline-none border border-gray-500 p-2 w-full "
-                  value={address.zipcode}
-                  onChange={(e) => {
-                    setAddress({ ...address, zipcode: e.target.value });
-                  }}
-                />
-                <input
-                  type="text"
+                  id="state"
                   placeholder="State"
-                  className="text-center outline-none border border-gray-500 p-2 w-full h-[100px]"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
                   value={address.state}
-                  onChange={(e) => {
-                    setAddress({ ...address, state: e.target.value });
-                  }}
+                  onChange={(e) =>
+                    setAddress({ ...address, state: e.target.value })
+                  }
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="zipcode"
+                  className="block text-sm font-medium text-gray-600 mb-1"
+                >
+                  ZIP / Postal Code
+                </label>
+                <input
+                  type="text"
+                  id="zipcode"
+                  placeholder="12345"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
+                  value={address.zipcode}
+                  onChange={(e) =>
+                    setAddress({ ...address, zipcode: e.target.value })
+                  }
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium text-gray-600 mb-1"
+                >
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  placeholder="(123) 456-7890"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
+                  value={address.phone}
+                  onChange={(e) =>
+                    setAddress({ ...address, phone: e.target.value })
+                  }
+                  required
                 />
               </div>
             </div>
           </div>
-        </div>
-        <div className="flex right border justify-center p-2 grow">
-          <div className="border flex flex-col grow justify-between items-center p-2">
-            <div className="w-full">
-              <h1 className="pb-4 text-2xl font-semibold">Payment Details</h1>
-              <div className="flex flex-col ">
-                <label className="border p-2 w-full">
+
+          {/* Payment Method Column */}
+          <div className="md:col-span-1">
+            <div className="bg-white p-8 rounded-2xl shadow-md h-full flex flex-col">
+              <h2 className="text-2xl font-semibold text-gray-700 mb-6">
+                Payment Method
+              </h2>
+              <div className="space-y-4 grow">
+                <label className="flex items-center p-4 border rounded-lg has-checked:bg-orange-50 has-checked:border-orange-400 transition cursor-pointer">
                   <input
                     type="radio"
                     name="payment"
-                    value={"UPI/Card"}
-                    checked={payment === "UPI/Card"}
-                    onChange={(e) => {
-                      setPayment(e.target.value);
-                    }}
-                  />
-                  UPI/Card
-                </label>
-                <label className="border p-2 w-full">
-                  <input
-                    type="radio"
-                    name="payment"
-                    value={"COD"}
+                    value="COD"
                     checked={payment === "COD"}
-                    onChange={(e) => {
-                      setPayment(e.target.value);
-                    }}
+                    onChange={(e) => setPayment(e.target.value)}
+                    className="h-4 w-4 text-orange-500 border-gray-300 focus:ring-orange-400"
+                    required
                   />
-                  Cash on Delivery
+                  <span className="ml-3 text-sm font-medium text-gray-700">
+                    Cash on Delivery
+                  </span>
+                </label>
+                <label className="flex items-center p-4 border rounded-lg has-checked:bg-orange-50 has-checked:border-orange-400 transition cursor-pointer">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="UPI/Card"
+                    checked={payment === "UPI/Card"}
+                    onChange={(e) => setPayment(e.target.value)}
+                    className="h-4 w-4 text-orange-500 border-gray-300 focus:ring-orange-400"
+                    required
+                  />
+                  <span className="ml-3 text-sm font-medium text-gray-700">
+                    UPI / Card (Prepaid)
+                  </span>
                 </label>
               </div>
+              <button
+                type="submit"
+                className="w-full mt-6 bg-orange-500 text-white py-3 px-4 rounded-lg font-semibold text-lg hover:bg-orange-600 transition-colors shadow-md hover:shadow-lg"
+              >
+                Place Order
+              </button>
             </div>
-            <button
-              type="submit"
-              className="block w-full cursor-pointer bg-black text-white text-center py-3 rounded-md font-semibold hover:bg-gray-800 transition"
-            >
-              Confirm Order
-            </button>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 }

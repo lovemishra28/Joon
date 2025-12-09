@@ -47,68 +47,125 @@ export default function getMyorders() {
     orderHistory();
   }, []);
 
+  const getStatusClasses = (status: string) => {
+    switch (status.toLowerCase()) {
+      case "processing":
+        return "bg-yellow-100 text-yellow-800";
+      case "shipped":
+        return "bg-blue-100 text-blue-800";
+      case "delivered":
+        return "bg-green-100 text-green-800";
+      case "cancelled":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
+    }
+  };
+
   return (
-    <div className="p-4">
-      <h1 className="text-center font-bold text-2xl pb-4">Order History</h1>
-      {orders.length === 0 ? (
-        <div className=" p-4 flex flex-col items-center border transition rounded">
-          <p className="pb-6 text-6xl font-bold">No Orders yet</p>
-          <Link
-            href={"/shop"}
-            className="border p-[5px] border-orange-400 hover:bg-orange-400 transition rounded text-sm"
-          >
-            Continue Shopping
-          </Link>
-        </div>
-      ) : (
-        <div className="border p-2 ">
-          {orders.map((order, index) => (
-            <div
-              key={order._id}
-              className="border flex flex-col gap-2 pt-4 p-2"
+    <div className="bg-[#F3F4F6] min-h-[calc(100vh-100px)] w-full p-4 sm:p-8">
+      <div className="max-w-5xl mx-auto">
+        <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+          Order History
+        </h1>
+        {orders.length === 0 ? (
+          <div className="text-center bg-white p-12 rounded-2xl shadow-md">
+            <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+              You have no orders yet.
+            </h2>
+            <p className="text-gray-500 mb-8">
+              All your future orders will appear here.
+            </p>
+            <Link
+              href={"/shop"}
+              className="inline-block px-8 py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors"
             >
-              <div className="flex w-full justify-between">
-                <h1 className=" font-bold text-2xl">
-                  <span>Order: </span>
-                  {index + 1}
-                </h1>
-                <p>{new Date(order.date).toLocaleDateString()}</p>
-              </div>
-              <div className=" flex flex-col gap-3 ">
-                {order.items.map((item, index) => (
-                  <div key={index} className="flex justify-between p-4 ">
-                    <div className="flex justify-between w-full border rounded-xl transition hover:shadow-2xl">
-                      <div className="rounded-xl overflow-hidden border">
-                        <img
-                          src={item.image || "https://placehold.co/100"}
-                          width={200}
-                          height={200}
-                        />
-                      </div>
-                      <div className="grow flex-col justify-baseline p-4">
-                        <p>{item.name}</p>
-                        <p>
-                          <span>Quantity: </span>
-                          {item.quantity}
-                        </p>
-                      </div>
-                      <div className="p-4 w-1/9 flex justify-center">
-                        <p className=" font-bold text-2xl">{item.price}</p>
-                      </div>
-                    </div>
+              Continue Shopping
+            </Link>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            {orders.map((order) => (
+              <div
+                key={order._id}
+                className="bg-white rounded-2xl shadow-md overflow-hidden transition hover:shadow-lg"
+              >
+                {/* Order Header */}
+                <div className="p-4 sm:p-6 bg-gray-50 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                  <div className="mb-4 sm:mb-0">
+                    <p className="text-sm text-gray-500">Order ID</p>
+                    <p className="font-mono text-sm text-gray-800">
+                      #{order._id.slice(-10)}
+                    </p>
                   </div>
-                ))}
-              </div>
-              <div className="flex w-full justify-between items-center p-4">
-                <p className=" font-bold text-2xl">{order.status}</p>
-                <div className="p-4 w-1/9 flex justify-center">
-                  <p className=" font-bold text-2xl">{order.amount}</p>
+                  <div className="mb-4 sm:mb-0 sm:text-center">
+                    <p className="text-sm text-gray-500">Date Placed</p>
+                    <p className="font-medium text-gray-800">
+                      {new Date(order.date).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <div className="sm:text-right">
+                    <p className="text-sm text-gray-500">Total Amount</p>
+                    <p className="font-bold text-lg text-gray-900">
+                      &#8377;{order.amount.toFixed(2)}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Order Items */}
+                <div className="p-4 sm:p-6">
+                  <div className="space-y-4">
+                    {order.items.map((item, index) => (
+                      <div key={index} className="flex gap-4 items-center">
+                        <div className="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden shrink-0">
+                          <img
+                            src={item.image || "https://placehold.co/100"}
+                            alt={item.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="grow">
+                          <p className="font-semibold text-gray-800">
+                            {item.name}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            Quantity: {item.quantity}
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-medium text-gray-800">
+                            &#8377;{item.price.toFixed(2)}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Order Footer */}
+                <div className="p-4 sm:p-6 bg-gray-50 border-t border-gray-200 flex justify-between items-center">
+                  <div>
+                    <p className="text-sm text-gray-500">Status</p>
+                    <span
+                      className={`px-3 py-1 text-sm font-medium rounded-full ${getStatusClasses(
+                        order.status
+                      )}`}
+                    >
+                      {order.status}
+                    </span>
+                  </div>
+                  <Link
+                    href="#"
+                    className="text-sm font-medium text-orange-500 hover:text-orange-600"
+                  >
+                    View Details
+                  </Link>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

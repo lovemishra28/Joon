@@ -10,7 +10,7 @@ interface CartItems {
   name: string;
   price: number;
   offerPrice: number;
-  image: string;
+  imageUrl: string;
   category: string;
   quantity: number;
 }
@@ -48,6 +48,24 @@ export default function CartPage() {
     return acc + item.price * item.quantity;
   }, 0);
 
+  const handleQuantityChange = (productId: string, newQuantity: number) => {
+    // TODO: Implement API call to update quantity
+    console.log(
+      `Updating product ${productId} to quantity ${newQuantity}`
+    );
+    setCartItems(
+      cartItems.map((item) =>
+        item._id === productId ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  };
+
+  const handleRemoveItem = (productId: string) => {
+    // TODO: Implement API call to remove item
+    console.log(`Removing product ${productId}`);
+    setCartItems(cartItems.filter((item) => item._id !== productId));
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen text-black text-2xl p-10">
@@ -57,71 +75,132 @@ export default function CartPage() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-full gap-3">
-      <h1 className="text-2xl pt-4 font-bold capitalize">Shopping Cart</h1>
-      {cartItems.length === 0 ? (
-        <div className=" p-4 flex flex-col items-center border transition rounded absolute top-1/2 -translate-y-1/2">
-          <p className="pb-6 text-6xl font-bold">Cart is empty</p>
-          <Link
-            href={"/shop"}
-            className="border p-[5px] border-orange-400 hover:bg-orange-400 transition rounded text-sm"
-          >
-            Continue Shopping
-          </Link>
-        </div>
-      ) : (
-        <div className="flex justify-center gap-4 w-full border py-4 px-16 ">
-          <div className="left border w-7/10 min-h-10 max-h-[500px] overflow-auto">
-            {cartItems.map((item) => (
-              <div key={item._id} className="flex border justify-around p-4">
-                <div className="image border p-2">
-                  <img
-                    src={item.image || "https://placehold.co/200"}
-                    alt={item.name}
-                  />
-                </div>
-                <div className="flex justify-between items-center border p-2 w-full grow">
-                  <div className="p-4">
-                    <h1 className="font-bold text-3xl">{item.name}</h1>
-                    <p>Quantity: {item.quantity}</p>
-                    <p>{item.category}</p>
-                  </div>
-                  <div className="p-4 font-bold text-2xl">
-                    <p>{item.price}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="right border flex flex-col w-1/3 min-h-10 p-3 gap-3">
-            <h1 className=" text-center font-bold text-2xl pt-2">
-              Order summary
-            </h1>
-            <div className="border grow p-4">
-              <div className="border p-4">
-                <div className="flex justify-around text-xl font-bold mb-2">
-                  <span>Subtotal: </span>
-                  <span>{totalAmount}</span>
-                </div>
-                <div className="flex justify-around text-xl font-bold mb-2">
-                  <span>Shipping fee: </span>
-                  <span>free</span>
-                </div>
-              </div>
-              <div className="flex justify-around text-xl font-bold mb-6 p-4">
-                <span>Total</span>
-                <span>{totalAmount}</span>
-              </div>
-            </div>
+    <div className="bg-[#F3F4F6] min-h-[calc(100vh-105px)] w-full p-4 sm:p-8">
+      <div className=" md:min-w-6xl mx-auto">
+        <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+          Shopping Cart
+        </h1>
+        {cartItems.length === 0 ? (
+          <div className="text-center bg-white p-12 rounded-2xl shadow-md">
+            <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+              Your cart is empty.
+            </h2>
+            <p className="text-gray-500 mb-8">
+              Looks like you haven't added anything to your cart yet.
+            </p>
             <Link
-              href="/place-order"
-              className="block w-full bg-black text-white text-center py-3 rounded-md font-semibold hover:bg-gray-800 transition"
+              href={"/shop"}
+              className="inline-block px-8 py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors"
             >
-              Proceed to Checkout
+              Continue Shopping
             </Link>
           </div>
-        </div>
-      )}
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full items-start">
+            {/* Cart Items Section */}
+            <div className="lg:col-span-2 bg-white rounded-2xl shadow-md">
+              <div className="p-6 border-b border-gray-200">
+                <h2 className="text-xl font-semibold text-gray-800">
+                  Cart Items
+                </h2>
+              </div>
+              <div className="divide-y divide-gray-200">
+                {cartItems.map((item) => (
+                  <div
+                    key={item._id}
+                    className="p-6 flex flex-col sm:flex-row gap-6"
+                  >
+                    <div className="w-full sm:w-32 h-32 bg-gray-100 rounded-lg overflow-hidden shrink-0">
+                      <img
+                        src={item.imageUrl || "https://placehold.co/200"}
+                        alt={item.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="grow flex flex-col">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h3 className="font-semibold text-lg text-gray-800">
+                            {item.name}
+                          </h3>
+                          <p className="text-sm text-gray-500">
+                            {item.category}
+                          </p>
+                        </div>
+                        <p className="font-bold text-lg text-gray-900">
+                          &#8377;{item.price.toFixed(2)}
+                        </p>
+                      </div>
+                      <div className="grow" />
+                      <div className="flex justify-between items-center mt-4">
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() =>
+                              handleQuantityChange(item._id, item.quantity - 1)
+                            }
+                            disabled={item.quantity <= 1}
+                            className="w-8 h-8 border rounded-md text-gray-600 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            -
+                          </button>
+                          <span className="w-10 text-center font-medium">
+                            {item.quantity}
+                          </span>
+                          <button
+                            onClick={() =>
+                              handleQuantityChange(item._id, item.quantity + 1)
+                            }
+                            className="w-8 h-8 border rounded-md text-gray-600 hover:bg-gray-100"
+                          >
+                            +
+                          </button>
+                        </div>
+                        <button
+                          onClick={() => handleRemoveItem(item._id)}
+                          className="text-sm font-medium text-red-500 hover:text-red-600"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Order Summary Section */}
+            <div className="lg:col-span-1 bg-white rounded-2xl shadow-md p-6 sticky top-24">
+              <h2 className="text-xl font-semibold text-gray-800 border-b border-gray-200 pb-4 mb-4">
+                Order Summary
+              </h2>
+              <div className="space-y-4">
+                <div className="flex justify-between text-gray-600">
+                  <span>Subtotal</span>
+                  <span className="font-medium">
+                    &#8377;{totalAmount.toFixed(2)}
+                  </span>
+                </div>
+                <div className="flex justify-between text-gray-600">
+                  <span>Shipping</span>
+                  <span className="font-medium text-green-600">Free</span>
+                </div>
+              </div>
+              <div className="border-t border-gray-200 mt-4 pt-4">
+                <div className="flex justify-between font-bold text-lg text-gray-900">
+                  <span>Total</span>
+                  <span>&#8377;{totalAmount.toFixed(2)}</span>
+                </div>
+              </div>
+              <Link
+                href="/place-order"
+                className="block w-full mt-6 bg-orange-500 text-white text-center py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors"
+              >
+                Proceed to Checkout
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

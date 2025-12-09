@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { ProductStruct } from "../types";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,30 +9,36 @@ interface Props {
 
 const ProductItem = ({ product }: Props) => {
   return (
-    <div className="">
-      <div className="flex flex-col items-center justify-center w-full overflow-hidden border p-2 gap-2">
+    <Link
+      href={`/ProductDetail/${product._id}`}
+      className="block bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 group"
+    >
+      <div className="relative w-full aspect-square overflow-hidden">
         <Image
           src={product.imageUrl[0] || "https://placehold.co/400x400"}
           alt={product.name}
-          width={200}
-          height={200}
-          className="w-8/10 aspect-square object-cover  rounded-md"
+          fill
+          className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
           unoptimized
         />
-        <div className=" flex flex-col w-8/10 items-baseline">
-          <div>
-            <h3 className="font-bold text-lg ">{product.name}</h3>
-            <p className="w-9/10 whitespace-nowrap overflow-hidden text-ellipsis ">{product.description}</p>
-          </div>
-          <div className="flex justify-between items-center w-full">
-            <span>{product.price}</span>
-            <button>
-              <Link href={`/ProductDetail/${product._id}`}>Details</Link>
-            </button>
+      </div>
+      <div className="p-4">
+        <h3 className="text-lg md:text-xl font-semibold text-gray-800 truncate">
+          {product.name}
+        </h3>
+        <p className="text-sm text-gray-500 mt-1 truncate">
+          {product.description}
+        </p>
+        <div className="mt-4 flex justify-between items-center">
+          <span className="font-bold text-xl md:text-2xl text-orange-500">
+            &#8377;{product.price}
+          </span>
+          <div className="text-xs font-semibold text-white bg-orange-500 px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            View
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

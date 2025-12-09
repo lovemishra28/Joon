@@ -36,9 +36,9 @@ export default function shopPage() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <h1 className="text-center p-8 text-2xl font-bold">All Products</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 px-16 py-8">
+    <div className="flex flex-col justify-center items-center bg-[#F3F4F6]">
+      <h1 className="text-center p-8 text-4xl font-bold">All Products</h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 px-16 py-8">
         {products.map((product) => (
           <ProductItem key={product._id} product={product} />
         ))}
