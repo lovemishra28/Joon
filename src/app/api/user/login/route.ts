@@ -4,10 +4,10 @@ import User from "@/models/UserModel";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
-await connectToDatabase();
-
 export async function POST(request: NextRequest) {
   try {
+    await connectToDatabase();
+
     const requestData = await request.json();
 
     const { email, password } = requestData;

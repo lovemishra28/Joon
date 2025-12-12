@@ -16,11 +16,6 @@ export default function SellerLayout({
       icon: LayoutDashboard,
       label: "Dashboard",
     },
-    {
-      href: "/seller/manageOrders",
-      icon: ListOrderedIcon,
-      label: "Orders",
-    },
   ];
 
   return (

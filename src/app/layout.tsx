@@ -3,6 +3,7 @@ import { Comic_Neue, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "../../components/navbar/page";
 import { cookies } from "next/headers";
+import Footer from "../../components/footer/page";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,6 +42,7 @@ export default async function RootLayout({
       >
         <Navbar isLoggedin={isLoggedin} />
         <main className="flex flex-col grow box-border ">{children}</main>
+        <Footer />
       </body>
     </html>
   );
