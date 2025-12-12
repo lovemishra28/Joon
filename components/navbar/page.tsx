@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import logo from "../assets/joon_logo.png";
+useRouter;
 import {
   ShoppingBag,
   User,
@@ -10,7 +11,7 @@ import {
   StoreIcon,
   LogOut,
   LayoutDashboard,
-  Menu
+  Menu,
 } from "lucide-react";
 
 import {
@@ -23,13 +24,28 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 type Props = {
   isLoggedin: boolean;
 };
 
 const Navbar = ({ isLoggedin }: Props) => {
-  const [cartValue, setCartValue] = useState("0")
+  const router = useRouter();
+  const [cartValue, setCartValue] = useState("0");
+  const handleLogout = async () => {
+    try {
+      await axios.get("/api/user/logout");
+
+      router.push("/login");
+
+      router.refresh();
+    } catch (error) {
+      console.log("Logout failed", error);
+    }
+  };
+
   return (
     <nav className="border-b border-gray-200 py-8 px-4 md:px-8 flex justify-between items-center sticky z-50 bg-white/80 backdrop-blur-md supports-backdrop-filter:bg-white/60 text-black top-0 ">
       {/* 1. Left Side: Logo (Home Link) */}
@@ -105,7 +121,7 @@ const Navbar = ({ isLoggedin }: Props) => {
                   </DropdownMenuItem>
                 </Link>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-red-600 cursor-pointer">
+                <DropdownMenuItem onClick={handleLogout} className="text-red-600 cursor-pointer">
                   <LogOut className="mr-2 h-4 w-4" />
                   Logout
                 </DropdownMenuItem>
@@ -120,12 +136,12 @@ const Navbar = ({ isLoggedin }: Props) => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <div className="cursor-pointer p-1">
-                  <Menu className=" w-7 h-7"/>
+                  <Menu className=" w-7 h-7" />
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48 bg-white">
                 <DropdownMenuLabel>Menu</DropdownMenuLabel>
-                <DropdownMenuSeparator/>
+                <DropdownMenuSeparator />
                 <Link href={"/seller/dashboard"}>
                   <DropdownMenuItem>
                     <StoreIcon className="w-4 h-4" />
@@ -136,9 +152,9 @@ const Navbar = ({ isLoggedin }: Props) => {
                   <DropdownMenuItem className="relative">
                     <ShoppingCart className="w-4 h-4" />
                     {isLoggedin && (
-                       <span className="absolute -top-1 ml-2 bg-red-500 text-white text-[10px] font-bold rounded-full px-1.5 py-0.5">
-                       {cartValue}
-                     </span>
+                      <span className="absolute -top-1 ml-2 bg-red-500 text-white text-[10px] font-bold rounded-full px-1.5 py-0.5">
+                        {cartValue}
+                      </span>
                     )}
                     Cart
                   </DropdownMenuItem>

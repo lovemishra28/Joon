@@ -29,20 +29,18 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookie = await cookies()
-  const token = cookie.get("token")
 
-  const isLoggedin = !!token
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token");
+  const isLoggedin = !!token;
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col grow ` }
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col grow `}
       >
-        <Navbar isLoggedin = {isLoggedin} />
-        <main className="flex flex-col grow box-border ">
-          {children}
-        </main>
+        <Navbar isLoggedin={isLoggedin} />
+        <main className="flex flex-col grow box-border ">{children}</main>
       </body>
     </html>
   );

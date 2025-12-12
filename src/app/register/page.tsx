@@ -1,49 +1,52 @@
 "use client";
 
-import User from "@/models/UserModel";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function login() {
+export default function RegisterPage() {
   const router = useRouter();
 
   const [user, setUser] = useState({
+    name: "",
     email: "",
     password: "",
   });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
-      const res = await axios.post("/api/user/login", user);
+      const res = await axios.post("/api/user/register", user);
       if (res.data.success) {
-        localStorage.setItem("userId", res.data.user.id);
-        console.log("Login Successful!");
-        router.push("/");
-        router.refresh();
+        console.log("Registration Successful!");
+        alert("Registration successful! Please log in.");
+        router.push("/login");
       }
     } catch (error: any) {
       if (error.response && error.response.data) {
-        setError(error.response.message);
+        setError(error.response.data.message || "Registration failed.");
       } else {
-        setError("Something went Wrong. Pls try again");
+        setError("Something went wrong. Please try again.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-120px)] bg-[#F3F4F6] p-4">
+    <div className="flex items-center justify-center min-h-[calc(100vh-105px)] bg-[#F3F4F6] p-4">
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
         <h1 className="text-3xl font-bold text-gray-800 text-center mb-2">
-          Welcome Back!
+          Create an Account
         </h1>
         <p className="text-center text-gray-500 mb-8">
-          Sign in to continue to your account.
+          Join us and start your shopping journey.
         </p>
 
         {error && (
@@ -55,7 +58,25 @@ export default function login() {
           </div>
         )}
 
-        <form onSubmit={handleLogin} className="space-y-6">
+        <form onSubmit={handleRegister} className="space-y-6">
+          <div>
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Full Name
+            </label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Name"
+              value={user.name}
+              onChange={(e) => setUser({ ...user, name: e.target.value })}
+              required
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
+            />
+          </div>
+
           <div>
             <label
               htmlFor="email"
@@ -95,20 +116,21 @@ export default function login() {
           <div>
             <button
               type="submit"
-              className="w-full bg-orange-500 text-white font-semibold py-3 rounded-lg hover:bg-orange-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+              disabled={loading}
+              className="w-full bg-orange-500 text-white font-semibold py-3 rounded-lg hover:bg-orange-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:bg-orange-300"
             >
-              Sign In
+              {loading ? "Creating Account..." : "Create Account"}
             </button>
           </div>
         </form>
 
         <p className="text-center text-sm text-gray-500 mt-8">
-          Don&apos;t have an account?{" "}
+          Already have an account?{" "}
           <Link
-            href="/register"
+            href="/login"
             className="font-medium text-orange-500 hover:text-orange-600"
           >
-            Sign Up
+            Sign In
           </Link>
         </p>
       </div>

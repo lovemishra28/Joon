@@ -24,7 +24,7 @@ export default function SellerLayout({
   ];
 
   return (
-    <div className="flex min-h-[calc(100vh-100px)] bg-[#F3F4F6]">
+    <div className="flex h-[calc(100vh-105px)] bg-[#F3F4F6]">
       {/* Sidebar */}
       <aside className="w-16 sm:w-64 bg-white shadow-md flex flex-col transition-all duration-300">
         <nav className="flex-1 p-2 sm:p-4 space-y-2">
