@@ -174,7 +174,7 @@ export default function Home() {
 
         {/* Div 4 content */}
 
-        <div className="flex flex-col md:flex-row h-[calc(100vh-100px)] p-2 bg-gray-100">
+        <div className="flex flex-col md:flex-row min-h-[calc(100vh-100px)] md:h-[calc(100vh-100px)] p-2 bg-gray-100">
           <div className="w-full md:w-1/3 flex flex-col justify-center items-center text-center p-8">
             <h2 className="text-5xl font-bold text-gray-800 mb-4">
               Best Sellers
