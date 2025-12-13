@@ -77,7 +77,7 @@ export default function productDetailPage() {
   }
 
   return (
-    <div className="w-full flex h-[calc(100vh-110px)]  bg-[#F3F4F6] ">
+    <div className="w-full flex min-h-[calc(100vh-110px)] md:h-[calc(100vh-110px)]  bg-[#F3F4F6] ">
       <div className="w-full flex flex-col md:flex-row  gap-4 md:gap-2 p-4 rounded-2xl ">
         <div className="border p-2 left flex justify-center rounded-2xl w-full md:w-3/5  bg-white">
           <div className="flex w-2/3 justify-center overflow-hidden">
