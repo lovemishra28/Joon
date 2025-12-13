@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface CartItems {
   _id: string;
@@ -24,7 +25,7 @@ export default function CartPage() {
     const getCart = async () => {
       const userId = localStorage.getItem("userId");
       if (!userId) {
-        alert("Please login to access the cart");
+        toast.error("Please login to access the cart");
         router.push("/login");
       }
 
@@ -35,6 +36,7 @@ export default function CartPage() {
         }
       } catch (error) {
         console.error("Error fetching cart:", error);
+        toast.error("Error fetching cart");
         setCartItems([]);
       } finally {
         setLoading(false);

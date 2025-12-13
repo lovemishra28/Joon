@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "../../components/navbar/page";
 import { cookies } from "next/headers";
 import Footer from "../../components/footer/page";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,6 +41,7 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col grow `}
       >
+        <Toaster position="bottom-right" reverseOrder={false} />
         <Navbar isLoggedin={isLoggedin} />
         <main className="flex flex-col grow box-border ">{children}</main>
         <Footer />

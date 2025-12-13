@@ -4,6 +4,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -25,14 +26,16 @@ export default function RegisterPage() {
       const res = await axios.post("/api/user/register", user);
       if (res.data.success) {
         console.log("Registration Successful!");
-        alert("Registration successful! Please log in.");
+        toast.success("Registration successful! Please log in.");
         router.push("/login");
       }
     } catch (error: any) {
       if (error.response && error.response.data) {
         setError(error.response.data.message || "Registration failed.");
+        toast.error(error.response.data.message || "Registration failed.");
       } else {
         setError("Something went wrong. Please try again.");
+        toast.error("Something went wrong. Please try again.");
       }
     } finally {
       setLoading(false);

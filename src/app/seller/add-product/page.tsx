@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { CldUploadWidget } from "next-cloudinary";
 import { CloudUploadIcon, ImagePlus, Trash2, XIcon } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function AddProductPage() {
   const [productData, setProduct] = useState({
@@ -32,7 +33,7 @@ export default function AddProductPage() {
           imageUrl: [...prev.imageUrl, newImageUrl],
         }));
       } else {
-        alert("You can upload a maximum of 5 images.");
+        toast.error("You can upload a maximum of 5 images.");
       }
     }
   };
@@ -56,7 +57,7 @@ export default function AddProductPage() {
     try {
       const response = await axios.post("/api/product/add", productData);
       if (response.data.success) {
-        alert("Product added successfully!");
+        toast.success("Product added successfully!");
         setProduct({
           name: "",
           description: "",
@@ -68,6 +69,7 @@ export default function AddProductPage() {
     } catch (error) {
       console.error(error);
       setError("Error adding product. Please try again.");
+      toast.error("Error adding product. Please try again.");
     }
   };
 

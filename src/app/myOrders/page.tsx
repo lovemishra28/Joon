@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 interface orderItem {
   name: string;
@@ -29,7 +30,7 @@ export default function getMyorders() {
     const orderHistory = async () => {
       const userId = localStorage.getItem("userId");
       if (!userId) {
-        alert("Please Login");
+        toast.error("Please Login");
         router.push("/login");
         return;
       }
@@ -40,7 +41,7 @@ export default function getMyorders() {
         }
       } catch (error) {
         console.error("Error fetching order history:", error);
-        alert("Failed to fetch order history.");
+        toast.error("Failed to fetch order history.");
       }
     };
 

@@ -5,6 +5,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function login() {
   const router = useRouter();
@@ -23,11 +24,14 @@ export default function login() {
       const res = await axios.post("/api/user/login", user);
       if (res.data.success) {
         localStorage.setItem("userId", res.data.user.id);
+        toast.success("Welcome back!", { duration: 3000 });
         console.log("Login Successful!");
         router.push("/");
         router.refresh();
       }
     } catch (error: any) {
+      const message = error.response?.data?.message || "Login failed";
+      toast.error(message);
       if (error.response && error.response.data) {
         setError(error.response.message);
       } else {

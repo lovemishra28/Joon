@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import toast from "react-hot-toast";
 
 export default function productDetailPage() {
   const router = useRouter();
@@ -39,7 +40,7 @@ export default function productDetailPage() {
     const userId = localStorage.getItem("userId");
 
     if (!userId) {
-      alert("Please login first");
+      toast.error("Please login first");
       router.push("/login");
       return;
     }
@@ -51,12 +52,12 @@ export default function productDetailPage() {
       });
 
       if (res.data.success) {
-        alert("Success! Item added to cart");
+        toast.success("Success! Item added to cart");
         router.refresh();
       }
     } catch (error) {
       console.log("Error in adding to cart: ", error);
-      alert("Failed to add Product");
+      toast.error("Failed to add Product");
     }
   };
 

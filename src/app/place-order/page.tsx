@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 export default function placeOrder() {
   const router = useRouter();
@@ -23,7 +24,7 @@ export default function placeOrder() {
     e.preventDefault();
     const userId = localStorage.getItem("userId");
     if (!userId) {
-      alert("Please Login first");
+      toast.error("Please Login first");
       router.push("/login");
       return;
     }
@@ -35,13 +36,13 @@ export default function placeOrder() {
       });
 
       if (response.data.success) {
-        alert("Order placed successfully!");
+        toast.success("Order placed successfully!");
         router.push("/myOrders");
       } else {
-        alert("Failed: " + response.data.message);
+        toast.error("Failed: " + response.data.message);
       }
     } catch (error) {
-      alert("Unable to process order");
+      toast.error("Unable to process order");
       console.log("Error in placing order :", error);
     }
   };
