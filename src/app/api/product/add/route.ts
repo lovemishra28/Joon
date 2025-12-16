@@ -8,10 +8,10 @@ export async function POST(request: NextRequest) {
   try {
     const requestData = await request.json();
 
-    const { name, description, price, offerPrice, category, image } =
+    const { name, description, price, category, imageUrl } =
       requestData;
 
-    if (!name || !description || !price || !category || !image || image.length === 0) {
+    if (!name || !description || !price || !category || !imageUrl || imageUrl.length === 0) {
       return NextResponse.json(
         { success: false, message: "Product Details not provided or image is missing" },
         { status: 400 }
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
       price: Number(price),
       offerPrice: Number(price),
       category,
-      imageUrl: image,
+      imageUrl: imageUrl,
     });
 
     await product.save();
