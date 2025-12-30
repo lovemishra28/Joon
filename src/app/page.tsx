@@ -39,29 +39,29 @@ export default function Home() {
 
         {/* Div 1 content  */}
 
-        <div className=" flex h-[calc(100vh-340px)] p-2">
+        <div className="flex flex-col md:flex-row h-[500px] md:h-[calc(100vh-340px)] p-2">
           <div className="relative border flex grow rounded-2xl overflow-hidden">
             <FadeImage
               src={coverImage}
               alt="cover Image"
               fill
-              className="object-center md:object-cover"
+              className="object-cover object-bottom"
               priority
             />
-            <div className=" top-2/5 md:top-6/10 left-1/15 absolute  p-5  md:w-max w-40 text-black font-bold font-sans text-left flex flex-col gap-4">
+            <div className="absolute top-1/2 -translate-y-1/2 left-4 md:left-12 p-4 md:p-5 w-3/4 sm:w-1/2 md:w-auto text-black font-bold font-sans text-left flex flex-col gap-2 md:gap-4">
               <div>
-                <p className="text-xs md:text-xl ">
+                <p className="text-sm sm:text-base md:text-xl">
                   Your world of products, one click away.
                 </p>
               </div>
               <div>
-                <p className="md:text-3xl ">
+                <p className="text-xl sm:text-2xl md:text-3xl">
                   Discover more. spend less. smile bigger.
                 </p>
               </div>
-              <div>
+              <div className="mt-2">
                 <Link href={"/shop"}>
-                  <button className="p-3 rounded-4xl bg-orange-400  hover:bg-black text-white">
+                  <button className="p-2 md:p-3 rounded-full bg-orange-400 hover:bg-black text-white text-sm md:text-base">
                     SHOP NOW
                   </button>
                 </Link>
