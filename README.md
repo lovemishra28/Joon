@@ -2,6 +2,8 @@
 
 A modern, production-ready e-commerce marketplace built with **Next.js**, **React**, and **MongoDB**. This platform enables complete digital retail operations with intuitive interfaces for both buyers and sellers.
 
+Project Deployment Link: https://joon-trk4.vercel.app/
+
 ---
 
 ## 📋 Overview
